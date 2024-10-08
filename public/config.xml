@@ -11,19 +11,19 @@
     <blti:title>IUD GPT</blti:title>
     <blti:description>Asistente virtual GPT IUDigital</blti:description>
     <blti:icon>favicon-16x16.png</blti:icon>
-    <blti:launch_url>https://7ba3-2a0c-5a80-3807-ca00-a16b-b3a1-8aca-6826.ngrok-free.app</blti:launch_url>
+    <blti:launch_url>https://front-end-nodejs-iudgpt.onrender.com</blti:launch_url>
     <blti:extensions platform="canvas.instructure.com">
       <lticm:property name="tool_id">iud_gpt_id</lticm:property>
       <lticm:property name="privacy_level">public</lticm:property>
       <lticm:options name="course_navigation">
-        <lticm:property name="url">https://7ba3-2a0c-5a80-3807-ca00-a16b-b3a1-8aca-6826.ngrok-free.app</lticm:property>
+        <lticm:property name="url">https://front-end-nodejs-iudgpt.onrender.com</lticm:property>
         <lticm:property name="text">IUD GPT</lticm:property>
         <lticm:property name="visibility">public</lticm:property>
         <lticm:property name="default">enabled</lticm:property>
         <lticm:property name="enabled">true</lticm:property>
       </lticm:options>
       <lticm:options name="user_navigation">
-        <lticm:property name="url">https://7ba3-2a0c-5a80-3807-ca00-a16b-b3a1-8aca-6826.ngrok-free.app</lticm:property>
+        <lticm:property name="url">https://front-end-nodejs-iudgpt.onrender.com</lticm:property>
         <lticm:property name="text">IUD GPT</lticm:property>
         <lticm:property name="enabled">true</lticm:property>
       </lticm:options>
