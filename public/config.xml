@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cartridge_basiclti_link xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0"
+    xmlns:blti = "http://www.imsglobal.org/xsd/imsbasiclti_v1p0"
+    xmlns:lticm ="http://www.imsglobal.org/xsd/imslticm_v1p0"
+    xmlns:lticp ="http://www.imsglobal.org/xsd/imslticp_v1p0"
+    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation = "http://www.imsglobal.org/xsd/imslticc_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticc_v1p0.xsd
+    http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0.xsd
+    http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd
+    http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
+    <blti:title>IUD GPT</blti:title>
+    <blti:description>Asistente virtual GPT IUDigital</blti:description>
+    <blti:icon>favicon-16x16.png</blti:icon>
+    <blti:launch_url>https://7ba3-2a0c-5a80-3807-ca00-a16b-b3a1-8aca-6826.ngrok-free.app</blti:launch_url>
+    <blti:extensions platform="canvas.instructure.com">
+      <lticm:property name="tool_id">iud_gpt_id</lticm:property>
+      <lticm:property name="privacy_level">public</lticm:property>
+      <lticm:options name="course_navigation">
+        <lticm:property name="url">https://7ba3-2a0c-5a80-3807-ca00-a16b-b3a1-8aca-6826.ngrok-free.app</lticm:property>
+        <lticm:property name="text">IUD GPT</lticm:property>
+        <lticm:property name="visibility">public</lticm:property>
+        <lticm:property name="default">enabled</lticm:property>
+        <lticm:property name="enabled">true</lticm:property>
+      </lticm:options>
+      <lticm:options name="user_navigation">
+        <lticm:property name="url">https://7ba3-2a0c-5a80-3807-ca00-a16b-b3a1-8aca-6826.ngrok-free.app</lticm:property>
+        <lticm:property name="text">IUD GPT</lticm:property>
+        <lticm:property name="enabled">true</lticm:property>
+      </lticm:options>
+    </blti:extensions>
+    <cartridge_bundle identifierref="BLTI001_Bundle"/>
+    <cartridge_icon identifierref="BLTI001_Icon"/>
+</cartridge_basiclti_link>  
