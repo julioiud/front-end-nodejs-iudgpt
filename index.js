@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
 const bodyParser = require('body-parser');
 
 const { validarLti } = require('./middleware/validar-lti');
 // Configurar EJS como motor de plantillas
 app.set('view engine', 'ejs');
+app.set('port', process.env.PORT || 3000)
 
 // Servir archivos estáticos desde la carpeta 'public'
 app.use(express.static('public'));
@@ -60,6 +60,6 @@ app.post('/', [validarLti], (req, res) => {
 
 })
 // Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+app.listen(app.get('port'), () => {
+  console.log(`Servidor corriendo en http://localhost:${app.get('port')}`);
 });
