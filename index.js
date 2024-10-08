@@ -28,6 +28,10 @@ app.get('/', (req, res) => {
 });*/
 
 app.post('/', [validarLti], (req, res) => {
+    if(process.env.ENABLED !== 'ok') {
+        res.render('info', { message: 'IUD GPT' });
+        return;
+    }
     if(!req.body) {
         res.status(400).send('No body');
         return;
