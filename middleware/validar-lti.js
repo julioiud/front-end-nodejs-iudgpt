@@ -6,8 +6,7 @@ const CONSUMER_SECRET = process.env.CONSUMER_SECRET; // Recibido del LMS
 
 
 const validarLti= (req = request, res = response, next) => {
-    const consumerKey = "12984~6XM9LymryF49GuV8vceCEKDLFEMcuLXTERaK2KJYHxEyyDkTw7TzaLfTQUkRxF6X"
-
+    const consumerKey = req.body.oauth_consumer_key
     if(!consumerKey) {
         res.status(422).send('Se esperada consumer Key');
         return;
