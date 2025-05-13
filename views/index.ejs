@@ -3,39 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat-IUDigital</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Asistente Virtual IUDigital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./css/styles.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
-  <div class="container-fluid chat-container">
-    <div id="loaders">
-    </div>
-    <div class="messages" id="chatMessages">
-      
-      <div class="message-1 bot">
-        <img src="/isotipo-57x57.png" class="img img-rounded img-fluid"/>
-        <%= message %>
+  <div class="chat-container">
+    <!-- Chat header -->
+    <div class="chat-header">
+      <div class="d-flex align-items-center">
+        <button class="toggle-sidebar me-2">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1><i class="fas fa-robot me-2"></i> Asistente del Curso</h1>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" title="Cambiar tema">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="clearChat" title="Limpiar chat">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button id="helpButton" title="Ayuda">
+          <i class="fas fa-question-circle"></i>
+        </button>
       </div>
     </div>
-    <form onsubmit="return false;">
-    <!-- Input area -->
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Escribe un mensaje..." />
-      <button id="buttonSend" onclick="sendMessage()">
-        <i class="fa-solid fa-paper-plane"></i>
-      </button>
-      <button id="buttonLoading" class="btn btn-primary" type="button" disabled>
-        <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
-        <span class="visually-hidden" role="status">Loading...</span>
-      </button>
-    </div>
-    </form>
 
+    <div class="chat-body">
+
+      <!-- FAQs -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <h5 class="mb-0">Preguntas frecuentes del curso</h5>
+        </div>
+        <div class="sidebar-search">
+          <input type="text" placeholder="Buscar preguntas..." id="faqSearch">
+        </div>
+        <div class="faq-list">
+          <div class="faq-item" data-question="¿Cuál es el contenido del curso?">
+            ¿Cuál es el contenido del curso?
+          </div>
+          <div class="faq-item" data-question="¿Cuáles son los objetivos de aprendizaje?">
+            ¿Cuáles son los objetivos de aprendizaje?
+          </div>
+          <div class="faq-item" data-question="¿Cómo se evalúa este curso?">
+            ¿Cómo se evalúa este curso?
+          </div>
+          <div class="faq-item" data-question="¿Cuándo debo entregar los trabajos?">
+            ¿Cuándo debo entregar los trabajos?
+          </div>
+          <div class="faq-item" data-question="¿Dónde encuentro el material de estudio?">
+            ¿Dónde encuentro el material de estudio?
+          </div>
+          <div class="faq-item" data-question="¿Cómo funcionan los foros de discusión?">
+            ¿Cómo funcionan los foros de discusión?
+          </div>
+          <div class="faq-item" data-question="¿Cómo contacto a mi profesor?">
+            ¿Cómo contacto a mi profesor?
+          </div>
+          <div class="faq-item" data-question="¿Dónde encuentro los recursos de la biblioteca?">
+            ¿Dónde encuentro los recursos de la biblioteca?
+          </div>
+          <div class="faq-item" data-question="¿Cómo puedo participar en los trabajos grupales?">
+            ¿Cómo puedo participar en los trabajos grupales?
+          </div>
+        </div>
+      </div>
+
+      <!-- chat area -->
+      <div class="main-chat">
+        <!-- Messages area -->
+        <div class="messages" id="chatMessages">
+          <div class="message bot">
+            <div class="message-content">
+              Hola, soy el asistente virtual de tu curso. Estoy aquí para responder tus dudas sobre el contenido del curso, actividades, evaluaciones, fechas de entrega y recursos de aprendizaje. ¿En qué puedo ayudarte hoy?
+            </div>
+            <div class="message-time">10:00</div>
+          </div>
+        </div>
+
+        <!-- Suggestions - sugerencias de chat -->
+        <div class="suggestions">
+          <div class="suggestion-chips">
+            <div class="suggestion-chip">Contenido del curso</div>
+            <div class="suggestion-chip">Fechas de entrega</div>
+            <div class="suggestion-chip">Método de evaluación</div>
+            <div class="suggestion-chip">Material de estudio</div>
+            <div class="suggestion-chip">Contactar profesor</div>
+          </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="input-area">
+          <form id="chatForm">
+            <div class="input-actions">
+              <button type="button" id="attachButton" title="Adjuntar archivo">
+                <i class="fas fa-paperclip"></i>
+              </button>
+              <button type="button" id="emojiButton" title="Insertar emoji">
+                <i class="far fa-smile"></i>
+              </button>
+            </div>
+            <div class="input-field">
+              <input type="text" id="userInput" placeholder="Escribe tu pregunta..." autocomplete="off" />
+              <button type="submit" class="send-button">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script src="./js/app.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
