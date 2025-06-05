@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initChat();
 
-  function sendMessage(message = '', isUser = true) {
+  async function sendMessage(message = '', isUser = true) {
     if (message.trim() === '') return;
 
     const currentTime = getCurrentTime();
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Bot response function
-  function getBotResponse(userMessage) {
+  async function getBotResponse(userMessage) {
     // Convert to lowercase for case-insensitive matching
     const messageLower = userMessage.toLowerCase();
 
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Default response
     // return "Gracias por tu consulta. Para darte una respuesta más precisa, ¿podrías proporcionarme más detalles o reformular tu pregunta? También puedes revisar las preguntas frecuentes en el menú lateral.";
-    return sendMessageButton(messageLower);
+    return await sendMessageButton(messageLower);
   }
 
   // Show bot typing animation
@@ -136,11 +136,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Chat form submission
-    chatForm.addEventListener('submit', function (e) {
+    chatForm.addEventListener('submit', async function (e) {
       e.preventDefault();
       const message = userInput.value.trim();
       if (message !== '') {
-        sendMessage(message, true);
+        await sendMessage(message, true);
         userInput.value = '';
 
         // Show bot typing animation
@@ -148,10 +148,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Simulate bot response time (500-1500ms)
         const responseTime = Math.floor(Math.random() * 1000) + 500;
-        setTimeout(() => {
+        setTimeout(async() => {
           removeBotTyping();
-          const botReply = getBotResponse(message);
-          sendMessage(botReply, false);
+          const botReply = await getBotResponse(message);
+         await sendMessage(botReply, false);
           // Save chat history
           localStorage.setItem('chatHistory', chatMessages.innerHTML);
         }, responseTime);
@@ -159,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Clear chat button
-    clearButton.addEventListener('click', function () {
+    clearButton.addEventListener('click', async function () {
       if (confirm('¿Estás seguro de que deseas borrar todo el historial de chat?')) {
         chatMessages.innerHTML = '';
         // Add welcome message
-        sendMessage('Hola, soy el asistente virtual de tu curso. Estoy aquí para responder tus dudas sobre el contenido del curso, actividades, evaluaciones, fechas de entrega y recursos de aprendizaje. ¿En qué puedo ayudarte hoy?', false);
+        await sendMessage('Hola, soy el asistente virtual de tu curso. Estoy aquí para responder tus dudas sobre el contenido del curso, actividades, evaluaciones, fechas de entrega y recursos de aprendizaje. ¿En qué puedo ayudarte hoy?', false);
         // Clear localStorage
         localStorage.removeItem('chatHistory');
       }
@@ -184,18 +184,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // FAQ items click
     faqItems.forEach(item => {
-      item.addEventListener('click', function () {
+      item.addEventListener('click', async function () {
         const question = this.getAttribute('data-question');
-        sendMessage(question, true);
+        await sendMessage(question, true);
 
         // Show bot typing
         showBotTyping();
 
         // Simulate bot response
-        setTimeout(() => {
+        setTimeout(async () => {
           removeBotTyping();
           const botReply = getBotResponse(question);
-          sendMessage(botReply, false);
+          await sendMessage(botReply, false);
           // Save chat history
           localStorage.setItem('chatHistory', chatMessages.innerHTML);
         }, 800);
@@ -204,18 +204,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Suggestion chips click
     suggestionChips.forEach(chip => {
-      chip.addEventListener('click', function () {
+      chip.addEventListener('click', async function () {
         const suggestion = this.textContent;
-        sendMessage(suggestion, true);
+        await sendMessage(suggestion, true);
 
         // Show bot typing
         showBotTyping();
 
         // Simulate bot response
-        setTimeout(() => {
+        setTimeout(async () => {
           removeBotTyping();
           const botReply = getBotResponse(suggestion);
-          sendMessage(botReply, false);
+         await sendMessage(botReply, false);
           // Save chat history
           localStorage.setItem('chatHistory', chatMessages.innerHTML);
         }, 800);
@@ -251,51 +251,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+const sendMessageButton = async (message = '') => {
+  const data = {
+    courseId,
+    studentId,
+    inChat: true,
+    name,
+    contextId,
+    studentIdCanvas,
+    contextTitle
+  };
 
-  const sendMessageButton = (message = '') => {
-    let data = {
-      courseId,
-      studentId,
-      inChat: true,
-      name,
-      contextId,
-      studentIdCanvas,
-      contextTitle
-    }
-
-    if (message !== "") {
-
-      data.message = message
-      let htmlText = '';
-
-      axios({
-        method: 'post',
-        url: baseUrl + '/messages',
-        data,
-        headers: {
-          'secret': secret
-        }
-      }).then(function (response) {
-        
-        const responses = response.data.answer
-        let text = ''
-        if (responses.length === 1) {
-          text = responses[0].text
-        } else {
-          text = responses
-        }
-
-        htmlText = text;
-
-
-      }).catch(function (e) {
-        console.log(e)
-        htmlText = '<b>No estoy disponible en este momento, lo siento</b>';
-      }).finally(function () {
-        return (htmlText) || '<b>En el momento, No puedo responder a tu pregunta</b>';
-        
-      })
-    }
+  if (message === '') {
+    return '<b>En el momento, No puedo responder a tu pregunta</b>';
   }
+
+  data.message = message;
+
+  try {
+    const response = await axios({
+      method: 'post',
+      url: baseUrl + '/messages',
+      data,
+      headers: {
+        'secret': secret
+      }
+    });
+
+    const responses = response.data.answer;
+
+    if (Array.isArray(responses) && responses.length === 1) {
+      return responses[0].text;
+    }
+
+    return typeof responses === 'string' ? responses : JSON.stringify(responses);
+  } catch (e) {
+    console.error(e);
+    return '<b>No estoy disponible en este momento, lo siento</b>';
+  }
+}
 
 });
