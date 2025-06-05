@@ -19,7 +19,19 @@ const CONSUMER_SECRET = process.env.CONSUMER_SECRET
 
 // Definir una ruta para la página principal
 app.get('/', (req, res) => {
-  res.render('info', { message: 'IUD GPT' });
+   res.render('info', { message: 'IUD GPT' });
+// res.render('index2', { 
+//         image : '',
+//         courseId :'',
+//         name:'',
+//         contextId:'',
+//         studentId :'',
+//         studentIdCanvas :'',
+//         message:'',
+//         baseUrl: '',
+//         secret:'',
+//         contextTitle: ''
+//     });
 });
 
 /*app.post('/', (req, res) => {
