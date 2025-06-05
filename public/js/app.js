@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initChat();
 
-  function sendMessage(message, isUser = true) {
+  function sendMessage(message = '', isUser = true) {
     if (message.trim() === '') return;
 
     const currentTime = getCurrentTime();
