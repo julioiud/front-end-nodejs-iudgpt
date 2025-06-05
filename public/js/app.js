@@ -263,12 +263,13 @@ const sendMessageButton = async (message = '') => {
   };
 
   if (message === '') {
-    return '<b>En el momento, No puedo responder a tu pregunta</b>';
+    return 'En el momento, No puedo responder a tu pregunta';
   }
 
   data.message = message;
 
   try {
+    showBotTyping();
     const response = await axios({
       method: 'post',
       url: baseUrl + '/messages',
@@ -281,12 +282,15 @@ const sendMessageButton = async (message = '') => {
     const responses = response.data.answer;
 
     if (Array.isArray(responses) && responses.length === 1) {
+      removeBotTyping();
       return responses[0].text;
     }
+    removeBotTyping();
 
     return typeof responses === 'string' ? responses : JSON.stringify(responses);
   } catch (e) {
     console.error(e);
+    removeBotTyping();
     return '<b>No estoy disponible en este momento, lo siento</b>';
   }
 }
