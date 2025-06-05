@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Default response
     // return "Gracias por tu consulta. Para darte una respuesta más precisa, ¿podrías proporcionarme más detalles o reformular tu pregunta? También puedes revisar las preguntas frecuentes en el menú lateral.";
-    return sendMessageButton(message);
+    return sendMessageButton(messageLower);
   }
 
   // Show bot typing animation
