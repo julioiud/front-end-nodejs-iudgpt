@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Simulate bot response
         setTimeout(async () => {
           removeBotTyping();
-          const botReply = getBotResponse(question);
+          const botReply = await getBotResponse(question);
           await sendMessage(botReply, false);
           // Save chat history
           localStorage.setItem('chatHistory', chatMessages.innerHTML);
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Simulate bot response
         setTimeout(async () => {
           removeBotTyping();
-          const botReply = getBotResponse(suggestion);
+          const botReply = await getBotResponse(suggestion);
          await sendMessage(botReply, false);
           // Save chat history
           localStorage.setItem('chatHistory', chatMessages.innerHTML);
